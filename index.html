@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <input type="number" id="inputTemp" placeholder="Enter temperature">
+    <select id="fromUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+    <select id="toUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+    <button onclick="convertTemperature()">Convert</button>
+    <p id="result"></p>
+
+    <script src="problems.js"></script>
+    <script>
+        function convertTemperature() {
+            const inputTemp = parseFloat(document.getElementById("inputTemp").value);
+            const fromUnit = document.getElementById("fromUnit").value;
+            const toUnit = document.getElementById("toUnit").value;
+            let result;
+
+            if (fromUnit === toUnit) {
+                result = inputTemp;
+            } else {
+                if (fromUnit === "celsius" && toUnit === "fahrenheit") {
+                    result = celsiusToFahrenheit(inputTemp);
+                } else if (fromUnit === "fahrenheit" && toUnit === "celsius") {
+                    result = fahrenheitToCelsius(inputTemp);
+                } else if (fromUnit === "celsius" && toUnit === "kelvin") {
+                    result = celsiusToKelvin(inputTemp);
+                } else if (fromUnit === "kelvin" && toUnit === "celsius") {
+                    result = kelvinToCelsius(inputTemp);
+                } else if (fromUnit === "fahrenheit" && toUnit === "kelvin") {
+                    const celsius = fahrenheitToCelsius(inputTemp);
+                    result = celsiusToKelvin(celsius);
+                } else if (fromUnit === "kelvin" && toUnit === "fahrenheit") {
+                    const celsius = kelvinToCelsius(inputTemp);
+                    result = celsiusToFahrenheit(celsius);
+                }
+            }
+
+            document.getElementById("result").textContent = `Result: ${inputTemp} ${fromUnit} is equal to ${result} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>
